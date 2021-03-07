@@ -69,17 +69,13 @@ function Ask_yn(){
 # Part 2. Main
 #====================================================
 
-# terminal theme setting
-Ask_yn "Do you want to use custom terminal theme setting?"; result=$? # get Ask_yn() 
+Ask_yn "Do you want to use English for terminal?"; result=$? # get Ask_yn()
+profile=0
 if [ $result = 1 ]; then
-    sudo mkdir ~/.local/share/fonts
-    sudo cp ./ttf/*ttf ~/.local/share/fonts
-    fc-cache -f -v 
-    dconf load /org/gnome/terminal/ < ./config/gnome_terminal_settings_backup.txt
-fi
-
-Ask_yn "Do you want to use English for terminal?"; result=$? # get Ask_yn() 
-if [ $result = 1 ]; then
+    printf "Choose shell environment: "; read respond
+    if [[ $respond != "" ]]; then
+        SHELL = $respond
+    fi
     case $SHELL in
         *zsh )
         profile=~/.zshrc
@@ -91,16 +87,18 @@ if [ $result = 1 ]; then
         profile=~/.profile
         ;;
         * )
-        echo "unknow sehll, need to manually add pyenv config on your shell profile!!"
+        echo "unknow sehll, need to manually add 'export LANG=C.UTF-8' on your shell profile!!"
         ;;
     esac
 
-    if grep -n "^export LANG*" $profile; then
-        echo "You were already config LANG before, if you still want to config it, please manually edit $profile."
-    else
-        printf "\n#Setting English for terminal\nexport LANG=C.UTF-8\n" >> $profile
-        if [[ $SHELL == "*bash" ]]; then
-            source $profile
+    if [ $profile != 0 ]; then
+        if grep -n "^export LANG*" $profile; then
+            echo "You were already config LANG before, if you still want to config it, please manually edit $profile."
+        else
+            printf "\n#Setting English for terminal\nexport LANG=C.UTF-8\n" >> $profile
+            if [[ $SHELL == "*bash" ]]; then
+                source $profile
+            fi
         fi
     fi
 fi

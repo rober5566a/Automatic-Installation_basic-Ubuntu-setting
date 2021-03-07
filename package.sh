@@ -57,29 +57,32 @@ if [ "$#" -gt 0 ]; then
                 shift 1
             ;;
             # Not setting ~/.gitconfig
-            "-no_git-config")
+            "-no_git-config" )
                 git_config=0
                 shift 1
             ;;
             # do not install all the extra-packages
-            "-no_extra-packages")
+            "-no_extra-packages" )
                 extra_packages=0
                 shift 1
             ;;
             # Not install openssh-sever
-            "--no_ssh-server")
+            "--no_ssh-server" )
                 ssh_server=0
                 shift 1
             ;;
             # Not install screen
-            "--no_screen")
+            "--no_screen" )
                 screen=0
                 shift 1
             ;;
             # Not install python3-pip
-            "--no_pip3")
+            "--no_pip3" )
                 pip3=0
                 shift 1
+            ;;
+            * )
+            break
             ;;
         esac
     done
@@ -114,15 +117,6 @@ sudo apt upgrade
 sudo apt install -y git-all vim curl wget make
 
 if [ $git_config = 1 ]; then
-    # git: config global usr information
-    Ask_yn "Do you want to config git global user information?"; result=$?
-    if [ $result = 1 ]; then
-        printf "Enter your git global user name: "; read usr_name
-        printf "Enter your git global user mail: "; read usr_mail
-        git config --global user.name "$usr_name"
-        git config --global user.email "$usr_mail"
-    fi
-
     # git: config vim to the commit editor
     Ask_yn "Do you want use VIM to be your git commitment editor?"; result=$?
     if [ $result = 1 ]; then
