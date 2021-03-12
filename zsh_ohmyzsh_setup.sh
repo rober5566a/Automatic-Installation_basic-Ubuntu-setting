@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # install zsh
-sudo apt install zsh -y
+sudo apt install zsh
 
 # oh-my-zsh package install, won't auto switch to the zsh.
 sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

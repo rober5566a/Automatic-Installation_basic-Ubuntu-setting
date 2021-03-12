@@ -113,8 +113,8 @@ function Ask_yn(){
 # Part 2. Main
 #====================================================
 sudo apt update
-sudo apt upgrade
-sudo apt install -y git-all vim curl wget make
+# sudo apt upgrade
+# sudo apt install git-all vim curl wget 
 
 if [ $git_config = 1 ]; then
     # git: config vim to the commit editor
@@ -176,5 +176,5 @@ if [ $extra_packages = 1 ]; then
     done
 fi
 
-sudo apt-get autoremove
+# sudo apt-get autoremove
 echo "Done!!"
